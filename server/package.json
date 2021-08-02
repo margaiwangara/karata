@@ -1,0 +1,39 @@
+{
+  "name": "@karata/server",
+  "version": "0.0.1",
+  "description": "Server-side code for Karata card game",
+  "main": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "directory": "karata/server",
+    "url": "https://git+https://github.com/margaiwangara/karata.git"
+  },
+  "keywords": [
+    "karata",
+    "card game"
+  ],
+  "author": "Margai Wangara <margaiwangara@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node dist/index.js",
+    "dev": "nodemon dist/index.js",
+    "clean": "rimraf -rf dist/*",
+    "watch": "tsc -w"
+  },
+  "devDependencies": {
+    "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.13",
+    "@types/node": "^16.4.10",
+    "nodemon": "^2.0.12",
+    "rimraf": "^3.0.2",
+    "ts-node": "^10.1.0",
+    "typescript": "^4.3.5"
+  },
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "envalid": "^7.1.1",
+    "express": "^4.17.1",
+    "pg": "^8.7.1",
+    "typeorm": "^0.2.36"
+  }
+}
