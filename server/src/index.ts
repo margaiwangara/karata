@@ -2,15 +2,17 @@ import express, { Request, Response } from 'express';
 import env from './env';
 import { createConnection } from 'typeorm';
 import { typeOrmConfig } from './config';
-
+import { AuthController } from './controllers';
 class Server {
   private app: express.Application;
   private PORT: number;
+  private authController: AuthController;
 
   constructor() {
     this.app = express();
     this.PORT = env.PORT;
     this.connnectDB();
+    this.authController = new AuthController();
     this.configuration();
     this.routes();
   }
@@ -21,13 +23,17 @@ class Server {
   }
 
   // configure server
-  public configuration() {}
+  public configuration() {
+    this.app.use(express.json());
+  }
 
   // configure routes
   public routes() {
-    this.app.get('/', (req: Request, res: Response) => {
-      res.send('Hello World!');
+    this.app.get('/', (_: Request, res: Response) => {
+      res.send('Welcome to Karata!');
     });
+
+    this.app.use('/api/auth', this.authController.router);
   }
 
   /**
