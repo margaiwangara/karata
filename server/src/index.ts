@@ -1,5 +1,7 @@
 import express, { Request, Response } from 'express';
 import env from './env';
+import { createConnection } from 'typeorm';
+import { typeOrmConfig } from './config';
 
 class Server {
   private app: express.Application;
@@ -7,21 +9,21 @@ class Server {
 
   constructor() {
     this.app = express();
-    this.PORT = env.PORT || 5000;
+    this.PORT = env.PORT;
+    this.connnectDB();
     this.configuration();
     this.routes();
   }
 
-  /**
-   * Configure server
-   */
+  // connect db
+  public async connnectDB() {
+    await createConnection(typeOrmConfig);
+  }
 
+  // configure server
   public configuration() {}
 
-  /**
-   * Configure routes
-   */
-
+  // configure routes
   public routes() {
     this.app.get('/', (req: Request, res: Response) => {
       res.send('Hello World!');
