@@ -10,6 +10,11 @@ const env = cleanEnv(process.env, {
 
   // node env port - 5000
   PORT: num({ default: 5000 }),
+
+  // session
+  COOKIE_NAME_AUTH: str(),
+  SESSION_SECRET: str(),
+  COOKIE_EXPIRE: num(),
 });
 
 export default env;
