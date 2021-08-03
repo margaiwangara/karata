@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400&display=swap"
+      rel="stylesheet"
+    />
+    <title>Karata | Home</title>
+
+    <style>
+      *,
+      **::after,
+      **::before {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: 'Merriweather', sans-serif;
+        padding: 0;
+        margin: 0;
+      }
+
+      #wrapper {
+        height: 100vh;
+        width: 100%;
+        overflow: hidden;
+        /* overflow-x: hidden; */
+        background: url(https://images.unsplash.com/photo-1565995240359-951ca2275ceb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1333&q=80)
+          no-repeat;
+        background-size: cover;
+      }
+
+      #welcome {
+        border-radius: 10px;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: #ffffff;
+        font-size: 3rem;
+        line-height: 1.5;
+        width: 80%;
+        margin: 1rem auto;
+        text-align: center;
+        padding: 1rem;
+      }
+
+      #preview {
+        margin-top: 1rem;
+        height: 400px;
+        overflow-y: auto;
+        width: 80%;
+        margin: 1rem auto;
+      }
+
+      @media screen and (max-width: 768px) {
+        #preview,
+        #welcome {
+          width: 90%;
+        }
+      }
+
+      @media screen and (max-width: 568px) {
+        #preview,
+        #welcome {
+          width: 100%;
+          padding: 0 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main id="wrapper">
+      <section id="welcome">
+        <h4>Welcome to Karata</h4>
+      </section>
+      <section id="preview"></section>
+    </main>
+  </body>
+</html>

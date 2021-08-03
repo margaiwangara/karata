@@ -15,6 +15,10 @@ const env = cleanEnv(process.env, {
   COOKIE_NAME_AUTH: str(),
   SESSION_SECRET: str(),
   COOKIE_EXPIRE: num(),
+
+  // urls
+  SERVER_URL: str({ default: 'http://localhost:5000' }),
+  CLIENT_URL: str({ default: 'http://localhost:3000' }),
 });
 
 export default env;

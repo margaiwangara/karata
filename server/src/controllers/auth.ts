@@ -88,6 +88,7 @@ export class AuthController {
     );
 
     return res.status(200).json({
+      token,
       success: true,
     });
   };
@@ -109,6 +110,12 @@ export class AuthController {
 
     if (!confirm_password) {
       return next(new HttpException('Confirm Password is required', 400));
+    }
+
+    if (confirm_password !== password) {
+      return next(
+        new HttpException('Password and Confirm Password must match', 400),
+      );
     }
 
     const key = FORGOT_PASSWORD_PREFIX + token;
@@ -160,7 +167,7 @@ export class AuthController {
     this.router.post('/register', this.register);
     this.router.post('/login', this.login);
     this.router.post('/forgot-password', this.forgotPassword);
-    this.router.post('/reset-password', this.resetPassword);
+    this.router.post('/reset-password/:token', this.resetPassword);
     this.router.get('/confirm-email', this.confirmEmail);
     this.router.post('/logout', this.logout);
     this.router.get('/me', this.me);

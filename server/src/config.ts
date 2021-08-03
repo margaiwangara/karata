@@ -4,6 +4,7 @@ import { __prod__ } from './constants';
 import { Redis } from 'ioredis';
 import { RedisStore } from 'connect-redis';
 import env from './env';
+import { Options } from 'swagger-jsdoc';
 
 export const typeOrmConfig = {
   type: 'postgres',
@@ -28,3 +29,34 @@ export const sessionConfig = (RedisStore: RedisStore, redisClient: Redis) => ({
     secure: __prod__, // cookie only works in https
   },
 });
+
+export const swaggerOptions: Options = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Karata Card Game API',
+      version: '0.0.1',
+      description:
+        'This is a card game API developed with Node, Express and TypeOrm.',
+      license: {
+        name: 'MIT',
+        url: 'https://spdx.org/licenses/MIT.html',
+      },
+      contact: {
+        name: 'Margai Wangara',
+        url: 'https://margaiwangara.me',
+        email: 'margaiwangara@gmail.com',
+      },
+    },
+    schemes: ['http'],
+    host: env.SERVER_URL,
+    basePath: '/api',
+    paths: {},
+    servers: [
+      {
+        url: 'http://localhost:5000',
+      },
+    ],
+  },
+  apis: ['./docs/auth.ts'],
+};

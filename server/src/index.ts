@@ -4,13 +4,15 @@ import session from 'express-session';
 import Redis from 'ioredis';
 import 'reflect-metadata';
 import { createConnection } from 'typeorm';
-import { sessionConfig, typeOrmConfig } from './config';
+import { sessionConfig, typeOrmConfig, swaggerOptions } from './config';
 import { AuthController } from './controllers';
 import { GameController } from './controllers';
 import env from './env';
 import { MyContext } from './types';
 import { to } from './middleware/async';
 import { errorMiddleware, HttpException } from './middleware/error';
+// import swaggerUI from 'swagger-ui-express';
+import swaggerJSDoc from 'swagger-jsdoc';
 
 class Server {
   private app: express.Application;
@@ -20,6 +22,7 @@ class Server {
   private RedisStore: connectRedis.RedisStore;
   private redis: Redis.Redis;
   private sessionMiddleware: any;
+  private jsDocSpecs: any;
 
   constructor() {
     this.app = express();
@@ -30,6 +33,7 @@ class Server {
     this.gameController = new GameController();
     this.routes();
     this.error();
+    this.jsDocSpecs = swaggerJSDoc(swaggerOptions);
   }
 
   // connect db
@@ -50,8 +54,12 @@ class Server {
     );
 
     // init middleware
+    this.app.set('view engine', 'ejs');
+    this.app.set('views', __dirname + '/views');
+
     this.app.use(express.json());
     this.app.use(this.sessionMiddleware);
+    this.app.use(express.static(__dirname + '/public'));
   }
 
   // attach redis to request and pass as middleware
@@ -63,9 +71,13 @@ class Server {
   // configure routes
   public routes() {
     this.app.get('/', (_: Request, res: Response) => {
-      res.send('Welcome to Karata!');
+      res.render('index');
     });
-
+    // this.app.use(
+    //   '/api-docs',
+    //   swaggerUI.serve,
+    //   swaggerUI.setup(this.jsDocSpecs),
+    // );
     this.app.use('/api/auth', this.attachRedis, this.authController.router);
     this.app.use('/api', this.gameController.router);
   }
